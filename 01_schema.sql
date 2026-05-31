@@ -2,6 +2,7 @@
 -- Portfolio DB Schema
 -- ============================================================
 CREATE DATABASE IF NOT EXISTS portfolio_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 USE portfolio_db;
 -- ------------------------------------------------------------
 -- users
@@ -55,5 +56,9 @@ CREATE TABLE IF NOT EXISTS articles (
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     delete_flag TINYINT(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    INDEX idx_articles_status_published (status, published_at, delete_flag)
+    INDEX idx_articles_status_published (
+        status,
+        published_at,
+        delete_flag
+    )
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;

@@ -3,14 +3,20 @@
 -- ============================================================
 USE portfolio_db;
 -- users: パスワードは "password" の BCrypt ハッシュ（Spring Security で照合）
-INSERT INTO users (username, email, password_hash)
+INSERT INTO
+    users (
+        username,
+        email,
+        password_hash
+    )
 VALUES (
         'admin',
         'admin@example.com',
         '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy'
     );
 -- projects
-INSERT INTO projects (
+INSERT INTO
+    projects (
         title,
         description,
         thumbnail_url,
@@ -38,7 +44,13 @@ VALUES (
         2
     );
 -- articles
-INSERT INTO articles (title, content, status, published_at)
+INSERT INTO
+    articles (
+        title,
+        content,
+        status,
+        published_at
+    )
 VALUES (
         'Spring Boot 入門: Hello World から始める',
         '## はじめに\nこの記事では Spring Boot プロジェクトのセットアップ方法を解説します。\n\n## 手順\n1. Spring Initializr でプロジェクトを生成\n2. ...',

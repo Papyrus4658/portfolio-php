@@ -1,33 +1,43 @@
+version: '3.8'
+
 services:
-  db:
-    image: mysql:8.4
-    container_name: portfolio_db
-    restart: unless-stopped
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword # ローカル開発用のみ
-      MYSQL_DATABASE: portfolio_db
-      MYSQL_USER: portfolio_user
-      MYSQL_PASSWORD: portfolio_pass
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-portfolio}
+      MYSQL_USER: ${MYSQL_USER:-user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
+      TZ: 'Asia/Tokyo'
     ports:
-      - "3306:3306" # ホスト側ポート:コンテナ側ポート
+      - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql # データを永続化
-      - ./docker/mysql/init:/docker-entrypoint-initdb.d # 初回起動時にSQLを自動実行
-    command: >
-      --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
-  # DB の中身をブラウザで確認したい場合は以下のコメントを外す
+      - mysql_data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-rootpassword}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   phpmyadmin:
-    image: phpmyadmin
-    container_name: portfolio_phpmyadmin
-    restart: unless-stopped
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
     environment:
-      PMA_HOST: db
-      PMA_USER: portfolio_user
-      PMA_PASSWORD: portfolio_pass
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
     ports:
       - "8080:80"
     depends_on:
-      - db
+      - mysql
 
 volumes:
-  db_data:
+  mysql_data:
