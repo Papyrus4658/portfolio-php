@@ -1,228 +1,544 @@
-* {
-  margin: 0;
-  padding: 0;
+/* ===================================================
+   CSS カスタムプロパティ
+   =================================================== */
+:root {
+    --color-bg: #f5f5f5;
+    --color-surface: #ffffff;
+    --color-border: #333333;
+    --color-text: #111111;
+    --color-muted: #666666;
+    --color-accent: #1a56db;
+    --color-danger: #c0392b;
+    --color-hover-bg: #111111;
+    --color-hover-fg: #f0c040;
+
+    --font-heading: Georgia, "Zen Old Mincho", serif;
+    --font-body: system-ui, "Zen Kaku Gothic New", sans-serif;
+
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, .12);
+    --radius: 6px;
+    --max-content: 900px;
+}
+
+/* ===================================================
+   リセット & ベース
+   =================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
+    font-size: 16px;
 }
 
 body {
-  background: linear-gradient(to bottom right, whitesmoke, gray);
-  min-height: 100vh;
-  text-align: center;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-body header {
-  color: #000;
+a {
+    color: var(--color-accent);
 }
 
-body h1,
-body h2 {
-  padding-top: 1%;
-  padding-bottom: 1%;
-  font-family: "Zen Antique";
-  font-style: italic;
-  text-align: center;
+a:hover {
+    text-decoration: underline;
 }
 
-body h1 {
-  font-size: 3em;
+img {
+    max-width: 100%;
+    display: block;
 }
 
-body h2 {
-  font-size: 2em;
-  border-bottom: #000 solid 2px;
+/* ===================================================
+   サイトヘッダー
+   =================================================== */
+.site-header {
+    background: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: .75rem 2rem;
+    display: flex;
+    align-items: center;
 }
 
-body header {
-  background: linear-gradient(to bottom right, white, gainsboro);
-  border-bottom: #000 solid 2px;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  width: 100%;
+.site-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--color-text);
+    text-decoration: none;
+    letter-spacing: .05em;
 }
 
-body .contents {
-  display: grid;
-  grid-template-columns: 80% 20%;
+/* ===================================================
+   メインレイアウト
+   =================================================== */
+.site-main {
+    flex: 1;
+    width: 100%;
+    max-width: calc(var(--max-content) + 280px);
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2rem;
+    align-items: start;
 }
 
-body .contents article {
-  margin-top: 15%;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-  font-family: "Zen Old Mincho";
+/* コンテンツ列 */
+.content {
+    min-width: 0;
 }
 
-body .contents article h1 {
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  background: linear-gradient(to bottom right, white, gainsboro);
-  font-size: 2.5em;
-  border: #000 solid 1px;
+/* ===================================================
+   サイドバー
+   =================================================== */
+.sidebar {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    position: sticky;
+    top: 4.5rem;
 }
 
-body .contents article form {
-  margin: 5% auto;
-  width: 90%;
-  background-color: white;
-  border: #000 solid 1px;
-  font-size: 1.5em;
+.sidebar-user {
+    font-weight: bold;
+    margin-bottom: .75rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid #ddd;
+    font-size: .95rem;
 }
 
-body .contents article form table {
-  margin: 5% auto;
-  width: 90%;
-  border: #000 solid 1px;
-  border-collapse: collapse;
+.sidebar-nav ul {
+    list-style: none;
 }
 
-body .contents article form table th,
-body .contents article form table td {
-  border: #000 solid 1px;
+.sidebar-nav li {
+    margin: .35rem 0;
 }
 
-body .contents article form table th {
-  background: linear-gradient(to bottom right, whitesmoke, gray);
+.sidebar-nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: .9rem;
 }
 
-body .contents article form table td {
-  width: 70%;
-  font-family: "Zen Kaku Gothic New";
+.sidebar-nav a:hover {
+    text-decoration: underline;
 }
 
-body .contents article form table input,
-body .contents article form table textarea {
-  width: 100%;
+/* サイドバーなし（ログアウト状態など） */
+.site-main.no-sidebar {
+    grid-template-columns: 1fr;
+    max-width: var(--max-content);
 }
 
-body .contents article form table textarea {
-  height: 5em;
+/* ===================================================
+   ページ見出し
+   =================================================== */
+.page-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-style: italic;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: .4rem;
+    margin-bottom: 1.5rem;
 }
 
-body .contents article form button {
-  margin-bottom: 5%;
-  padding: 1%;
-  background-color: white;
-  border: #000 solid 1px;
-  border-radius: 10%;
+/* ===================================================
+   フラッシュメッセージ
+   =================================================== */
+.flash-error {
+    background: #fdecea;
+    border: 1px solid var(--color-danger);
+    color: var(--color-danger);
+    border-radius: var(--radius);
+    padding: .7rem 1rem;
+    margin-bottom: 1rem;
+    font-size: .95rem;
 }
 
-body .contents article form button:hover {
-  background-color: #000;
-  color: white;
+.flash-success {
+    background: #eafaf1;
+    border: 1px solid #27ae60;
+    color: #1e8449;
+    border-radius: var(--radius);
+    padding: .7rem 1rem;
+    margin-bottom: 1rem;
+    font-size: .95rem;
 }
 
-body .contents article form .preview {
-  max-width: 75%;
-  border: #000 solid 1px;
+/* ===================================================
+   フォーム
+   =================================================== */
+.form-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-card);
 }
 
-body .contents article .my_work {
-  margin: 5% auto;
-  background: white;
-  border: #000 solid 1px;
+.form-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
 }
 
-body .contents article .my_work a {
-  color: #000;
-  text-decoration: none;
+.form-table th,
+.form-table td {
+    border: 1px solid #ccc;
+    padding: .6rem .9rem;
+    text-align: left;
+    vertical-align: middle;
 }
 
-body .contents article .my_work figure {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 5%;
-  border-bottom: #000 solid 2px;
+.form-table th {
+    background: var(--color-bg);
+    font-weight: 600;
+    width: 30%;
+    white-space: nowrap;
 }
 
-body .contents article .my_work figure img {
-  margin: auto 5%;
-  width: 100%;
-  border: #000 solid 1px;
+.form-table td {
+    width: 70%;
 }
 
-body .contents article .my_work figure figcaption .outline {
-  width: 30em;
-  height: 7.5em;
-  text-align: left;
+.form-table input[type="text"],
+.form-table input[type="url"],
+.form-table input[type="email"],
+.form-table input[type="password"],
+.form-table input[type="date"],
+.form-table input[type="number"],
+.form-table textarea {
+    width: 100%;
+    padding: .4rem .6rem;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font: inherit;
+    background: var(--color-surface);
 }
 
-body .contents article .my_work .appendix {
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  font-size: 0.9em;
+.form-table textarea {
+    height: 5rem;
+    resize: vertical;
 }
 
-body .contents article .my_work .appendix .edit {
-  margin-left: 3%;
-  text-align: left;
+.form-table input[type="file"] {
+    font: inherit;
 }
 
-body .contents article .my_work .appendix .url {
-  margin-left: 3%;
-  text-align: center;
-  white-space: nowrap;
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-body .contents article .my_work .appendix .created {
-  margin-right: 3%;
-  text-align: right;
+/* ===================================================
+   ボタン
+   =================================================== */
+.btn {
+    display: inline-block;
+    padding: .5rem 1.4rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font: inherit;
+    font-size: .95rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .15s, color .15s;
 }
 
-body .contents article .my_work:hover {
-  background-color: #000;
-  color: gold;
+.btn:hover {
+    background: var(--color-hover-bg);
+    color: var(--color-hover-fg);
+    text-decoration: none;
 }
 
-body .contents article .my_work:hover a {
-  color: gold;
+.btn-primary {
+    background: var(--color-accent);
+    color: #fff;
+    border-color: var(--color-accent);
 }
 
-body .contents article .my_work:hover a h2,
-body .contents article .my_work:hover a figure {
-  border-color: gold;
+.btn-primary:hover {
+    background: #1341b0;
+    color: #fff;
 }
 
-body .contents article .detail {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5%;
-  margin: 5% auto;
-  background: white;
-  border: #000 solid 1px;
+.btn-danger {
+    background: var(--color-danger);
+    color: #fff;
+    border-color: var(--color-danger);
 }
 
-body .contents article .detail img {
-  margin: 1% 2%;
-  width: 100%;
-  border: #000 solid 1px;
+.btn-danger:hover {
+    background: #962d22;
+    color: #fff;
 }
 
-body .contents article .detail figcaption .explaination {
-  text-align: left;
+/* ===================================================
+   作品カード（公開トップ）
+   =================================================== */
+.works-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-body .contents article .error_message {
-  color: red;
+.work-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: background .15s, color .15s;
 }
 
-body .contents aside {
-  padding: 1%;
-  background-color: white;
-  border: #000 solid 1px;
-  text-align: center;
-  line-height: 2em;
-  position: fixed;
-  z-index: 900;
-  top: 20%;
-  right: 5%;
-  font-family: "Zen Kaku Gothic New";
+.work-card:hover {
+    background: var(--color-hover-bg);
+    color: var(--color-hover-fg);
 }
 
-/*# sourceMappingURL=style.css.map */
+.work-card:hover a,
+.work-card:hover .work-meta {
+    color: var(--color-hover-fg);
+}
+
+.work-card:hover .work-figure {
+    border-color: var(--color-hover-fg);
+}
+
+.work-figure {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    color: inherit;
+}
+
+.work-figure img {
+    width: 180px;
+    height: 120px;
+    object-fit: cover;
+    border-right: 1px solid var(--color-border);
+}
+
+.work-figcaption {
+    padding: .75rem 1rem;
+}
+
+.work-figcaption h2 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    margin-bottom: .4rem;
+}
+
+.work-figcaption .work-outline {
+    font-size: .9rem;
+    color: var(--color-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.work-card:hover .work-figcaption .work-outline {
+    color: var(--color-hover-fg);
+}
+
+.work-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: .5rem 1rem;
+    font-size: .85rem;
+    color: var(--color-muted);
+    flex-wrap: wrap;
+}
+
+.work-meta .work-url {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.work-meta .work-url a {
+    color: inherit;
+}
+
+.work-meta .work-actions {
+    display: flex;
+    gap: .5rem;
+    margin-left: auto;
+}
+
+.work-meta .work-actions a {
+    font-size: .82rem;
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.work-meta .work-actions a:hover {
+    text-decoration: underline;
+}
+
+/* ===================================================
+   確認テーブル（confirm.php 共通）
+   =================================================== */
+.confirm-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+.confirm-table th,
+.confirm-table td {
+    border: 1px solid #ccc;
+    padding: .6rem .9rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.confirm-table th {
+    background: var(--color-bg);
+    font-weight: 600;
+    width: 30%;
+    white-space: nowrap;
+}
+
+.confirm-table .preview-img {
+    max-width: 320px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* ===================================================
+   非表示作品一覧（redisplay）
+   =================================================== */
+.hidden-works-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.hidden-works-table th,
+.hidden-works-table td {
+    border: 1px solid #ccc;
+    padding: .6rem .8rem;
+    vertical-align: middle;
+    font-size: .9rem;
+}
+
+.hidden-works-table th {
+    background: var(--color-bg);
+    font-weight: 600;
+}
+
+.hidden-works-table img {
+    width: 80px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.hidden-works-table .work-outline-cell {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ===================================================
+   完了ページ
+   =================================================== */
+.done-box {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+}
+
+.done-box p {
+    margin: .6rem 0 1.5rem;
+}
+
+/* ===================================================
+   ログインページ
+   =================================================== */
+.login-wrap {
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+/* ===================================================
+   フッター
+   =================================================== */
+.site-footer {
+    text-align: center;
+    font-size: .8rem;
+    color: var(--color-muted);
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+    margin-top: auto;
+}
+
+/* ===================================================
+   ユーティリティ
+   =================================================== */
+.text-danger {
+    color: var(--color-danger);
+}
+
+.mt-1 {
+    margin-top: .5rem;
+}
+
+.mt-2 {
+    margin-top: 1rem;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+/* ===================================================
+   レスポンシブ
+   =================================================== */
+@media (max-width: 720px) {
+    .site-main {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        order: -1;
+    }
+
+    .work-figure {
+        grid-template-columns: 120px 1fr;
+    }
+
+    .work-figure img {
+        width: 120px;
+        height: 80px;
+    }
+}

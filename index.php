@@ -1,127 +1,106 @@
 <?php
-require("dbconnect.php");
+declare(strict_types=1);
+require __DIR__ . '/dbconnect.php';
 session_start();
+
+$page_title = 'ポートフォリオ';
+$css_root = 'css';
+
+// ログイン済みか
+$logged_in = !empty($_SESSION['admin_id']);
+$user = null;
+if ($logged_in) {
+    $st = $db->prepare('SELECT * FROM users WHERE id = ? AND delete_flag = 0');
+    $st->execute([$_SESSION['admin_id']]);
+    $user = $st->fetch();
+    if (!$user) {
+        unset($_SESSION['admin_id']);
+        $logged_in = false;
+    }
+}
+
+// 公開中の作品を取得
+$st = $db->query('SELECT * FROM works WHERE visible = 1 ORDER BY id DESC');
+$works = $st->fetchAll();
 ?>
+<?php require __DIR__ . '/layout/header.php'; ?>
 
-<!DOCTYPE html>
-<html lang="ja">
+<?php if ($logged_in): ?>
+    <div class="site-main">
+        <div class="content">
+            <h1 class="page-title">作品一覧</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ポートフォリオ</title>
-
-    <link rel="stylesheet" href="css/ress.css">
-    <link rel="stylesheet" href="css/style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Zen+Old+Mincho:wght@400;500;600;700;900&display=swap"
-        rel="stylesheet">
-
-    <link rel="icon" href="images/albatross.png" type="image/png">
-</head>
-
-<body>
-    <header>
-        <h1>ポートフォリオ</h1>
-    </header>
-
-    <div class="contents">
-        <?php if (isset($_SESSION["login"])): ?>
-            <?php
-            $st = $db->prepare("SELECT * FROM members WHERE id=?");
-            $st->execute([$_SESSION["login"]]);
-            $user = $st->fetch();
-            $st = $db->query("SELECT * FROM my_works WHERE visible=1 ORDER BY id DESC");
-            ?>
-
-            <article>
-                <h1>作品一覧</h1>
-
-                <?php while ($my_work = $st->fetch()): ?>
-                    <div class="my_work">
-                        <a href="details/index.php?id=<?php print ($my_work["id"]); ?>">
-                            <figure>
-                                <img src="<?php print ($my_work["image"]); ?>" alt="サムネイル">
-                                <figcaption>
-                                    <h2><?php print ($my_work["name"]); ?></h2>
-                                    <!-- <hr> -->
-                                    <p class="outline"><?php print ($my_work["outline"]); ?></p>
-                                </figcaption>
-                            </figure>
-                            <!-- <hr> -->
-                        </a>
-
-                        <div class="appendix">
-                            <div class="edit">
-                                <?php if ($user["role"] == 0): ?>
-                                    <a href="edit_heading/index.php?id=<?php print ($my_work["id"]); ?>">
-                                        [編集]
+            <?php if (empty($works)): ?>
+                <p>登録されている作品はありません。</p>
+            <?php else: ?>
+                <div class="works-list">
+                    <?php foreach ($works as $w): ?>
+                        <div class="work-card">
+                            <a class="work-figure" href="/admin/works/edit/?id=<?= h($w['id']) ?>">
+                                <img src="/<?= h($w['thumbnail']) ?>" alt="<?= h($w['title']) ?>のサムネイル">
+                                <div class="work-figcaption">
+                                    <h2><?= h($w['title']) ?></h2>
+                                    <p class="work-outline"><?= nl2br(h($w['description'])) ?></p>
+                                </div>
+                            </a>
+                            <div class="work-meta">
+                                <span class="work-url">
+                                    <a href="<?= h($w['repo_url']) ?>" target="_blank" rel="noopener">
+                                        <?= h($w['repo_url']) ?>
                                     </a>
-                                    <a href="hide_work/index.php?id=<?php print ($my_work["id"]); ?>">
-                                        [削除]
-                                    </a>
-                                <?php endif; ?>
+                                </span>
+                                <span>登録: <?= h(date('Y/m/d', strtotime($w['created_at']))) ?></span>
+                                <span>更新: <?= h(date('Y/m/d', strtotime($w['updated_at']))) ?></span>
+                                <span class="work-actions">
+                                    <a href="/admin/works/edit/?id=<?= h($w['id']) ?>">[編集]</a>
+                                    <a href="/admin/works/hide/?id=<?= h($w['id']) ?>">[非表示]</a>
+                                </span>
                             </div>
-                            <p class="url">
-                                <a href="<?php print ($my_work["url"]); ?>"><?php print ($my_work["url"]); ?></a>
-                            </p>
-                            <p class="created">
-                                <time datetime="<?php print ($my_work["created"]); ?>">
-                                    作成日 :
-                                    <?php print (date("Y/m/d", strtotime($my_work["created"]))); ?>
-                                </time>
-                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <?php $root = '/';
+        require __DIR__ . '/layout/admin_sidebar.php'; ?>
+    </div>
+
+<?php else: ?>
+
+    <div class="site-main no-sidebar">
+        <div class="content works-list">
+            <?php if (empty($works)): ?>
+                <p>現在、作品はありません。</p>
+            <?php else: ?>
+                <?php foreach ($works as $w): ?>
+                    <div class="work-card">
+                        <div class="work-figure" style="text-decoration:none;color:inherit;">
+                            <img src="/<?= h($w['thumbnail']) ?>" alt="<?= h($w['title']) ?>のサムネイル">
+                            <div class="work-figcaption">
+                                <h2><?= h($w['title']) ?></h2>
+                                <p class="work-outline"><?= nl2br(h($w['description'])) ?></p>
+                            </div>
+                        </div>
+                        <div class="work-meta">
+                            <span class="work-url">
+                                <a href="<?= h($w['repo_url']) ?>" target="_blank" rel="noopener">
+                                    <?= h($w['repo_url']) ?>
+                                </a>
+                            </span>
+                            <span>登録: <?= h(date('Y/m/d', strtotime($w['created_at']))) ?></span>
+                            <span>更新: <?= h(date('Y/m/d', strtotime($w['updated_at']))) ?></span>
                         </div>
                     </div>
-                <?php endwhile; ?>
-            </article>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
 
-            <aside>
-                <p>ようこそ <?php print ($user["name"]); ?> さん</p>
-                <p>作品一覧</p>
-
-                <?php if ($user["role"] == 0): ?>
-                    <p><a href="add_work/">作品登録</a></p>
-                <?php endif; ?>
-
-                <p><a href="logout.php">ログアウト</a></p>
-                <p><a href="quit/">退会</a></p>
-            </aside>
-        <?php else: ?>
-            <article>
-                <h1>ログイン</h1>
-                <form action="login.php" method="post">
-                    <?php
-                    if (isset($_SESSION["error_message"])) {
-                        print ("<p class=\"error_message\">" . $_SESSION["error_message"] . "</p>");
-                        unset($_SESSION["error_message"]);
-                    }
-                    ?>
-
-                    <table>
-                        <tr>
-                            <th><label for="email">ログインID</label></th>
-                            <td><input type="email" name="email" id="email" required></td>
-                        </tr>
-                        <tr>
-                            <th><label for="password">パスワード</label></th>
-                            <td><input type="password" name="password" id="password" required></td>
-                        </tr>
-                    </table>
-
-                    <button type="submit">ログイン</button>
-                </form>
-            </article>
-
-            <aside>
-                <p><a href="register_account/">会員登録</a></p>
-                <p><a href="recover_account/">アカウント復元</a></p>
-            </aside>
-        <?php endif; ?>
+        <div style="text-align:right; margin-top:.5rem;">
+            <a href="/login.php" class="btn">管理者ログイン</a>
+        </div>
     </div>
-</body>
 
-</html>
+<?php endif; ?>
+
+<?php require __DIR__ . '/layout/footer.php'; ?>
