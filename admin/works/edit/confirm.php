@@ -115,7 +115,7 @@ $d = $_SESSION['work_edit'];
                             <img class="preview-img" src="temp/<?= h($d['temp_file']) ?>" alt="新しいサムネイル">
                             <small class="mt-1" style="display:block;">（新しい画像に変更）</small>
                         <?php else: ?>
-                            <img class="preview-img" src="/<?= h($d['old_thumb']) ?>" alt="現在のサムネイル">
+                            <img class="preview-img" src="<?= h(url('/' . $d['old_thumb'])) ?>" alt="現在のサムネイル">
                             <small class="mt-1" style="display:block;">（変更なし）</small>
                         <?php endif; ?>
                     </td>
@@ -138,7 +138,7 @@ $d = $_SESSION['work_edit'];
                 <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">更新</button>
-                    <a href="./index.php?id=<?= h((string) $d['id']) ?>" class="btn">キャンセル</a>
+                    <a href="index.php?id=<?= h((string) $d['id']) ?>" class="btn">キャンセル</a>
                 </div>
             </form>
         </div>

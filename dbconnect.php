@@ -2,19 +2,27 @@
 declare(strict_types=1);
 
 // --- 設定 ---
-$dsn = 'mysql:host=localhost;dbname=portfolio_db;charset=utf8';
-$username = 'root';
-$password = 'rootpassword';
+define('DB_DSN', 'mysql:dbname=portfolio_db;host=127.0.0.1;charset=utf8mb4');
+define('DB_USER', 'root');
+define('DB_PASS', 'rootpassword');
+
+// --- 設置場所 ---
+// このアプリをドキュメントルート直下ではなく、サブディレクトリ
+// （例: http://localhost/portfolio-php/）で動かす場合はここを変更する。
+// 例: define('BASE_PATH', '/portfolio-php');
+// ドキュメントルート直下で動かす場合は '' のままにする。
+define('BASE_PATH', '/portfolio-php');
 
 // --- PDO接続 ---
 try {
-    $pdo = new PDO($dsn, $username, $password);
-
-    // エラーモードを例外に設定
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db = new PDO(DB_DSN, DB_USER, DB_PASS, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
 } catch (PDOException $e) {
-    echo "接続失敗：" . $e->getMessage();
-    exit;
+    http_response_code(500);
+    exit('DB接続エラー: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES));
 }
 
 // --- ユーティリティ ---
@@ -23,6 +31,18 @@ try {
 function h(mixed $str): string
 {
     return htmlspecialchars((string) $str, ENT_QUOTES, 'UTF-8');
+}
+
+/**
+ * ルートからの絶対パス（例: '/login.php'）に BASE_PATH を付与する。
+ * 'index.php' のような相対パスや 'http(s)://' で始まるURLはそのまま返す。
+ */
+function url(string $path = ''): string
+{
+    if ($path === '' || $path[0] !== '/') {
+        return $path;
+    }
+    return BASE_PATH . $path;
 }
 
 /** CSRFトークン生成（セッションに保存） */
@@ -63,10 +83,10 @@ function flash_set(string $key, string $msg): void
 }
 
 /** ログイン済みでなければリダイレクト */
-function require_login(string $redirect = '/index.php'): array
+function require_login(string $redirect = '/login.php'): array
 {
     if (empty($_SESSION['admin_id'])) {
-        header('Location: ' . $redirect);
+        header('Location: ' . url($redirect));
         exit;
     }
     global $db;
@@ -75,17 +95,17 @@ function require_login(string $redirect = '/index.php'): array
     $user = $st->fetch();
     if (!$user) {
         unset($_SESSION['admin_id']);
-        header('Location: ' . $redirect);
+        header('Location: ' . url($redirect));
         exit;
     }
     return $user;
 }
 
 /** POST専用。GETなら$toへリダイレクト */
-function require_post(string $to = '../index.php'): void
+function require_post(string $to = '/index.php'): void
 {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        header('Location: ' . $to);
+        header('Location: ' . url($to));
         exit;
     }
 }

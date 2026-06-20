@@ -5,7 +5,7 @@ session_start();
 
 // ログイン済みなら管理TOPへ
 if (!empty($_SESSION['admin_id'])) {
-    header('Location: /admin/');
+    header('Location: ' . url('/admin/'));
     exit;
 }
 
@@ -42,7 +42,7 @@ $error = flash_get('error');
                 </table>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">復元</button>
-                    <a href="./login.php" class="btn">ログインへ</a>
+                    <a href="<?= url('/login.php') ?>" class="btn">ログインへ</a>
                 </div>
             </form>
         </div>

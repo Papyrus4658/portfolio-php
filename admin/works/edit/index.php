@@ -8,7 +8,7 @@ $user = require_login('/login.php');
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$id) {
     flash_set('error', '無効な作品IDです。');
-    header('Location: /');
+    header('Location: ' . url('/'));
     exit;
 }
 
@@ -17,7 +17,7 @@ $st->execute([$id]);
 $work = $st->fetch();
 if (!$work) {
     flash_set('error', '作品が見つかりませんでした。');
-    header('Location: /');
+    header('Location: ' . url('/'));
     exit;
 }
 
@@ -49,7 +49,7 @@ $error = flash_get('error');
                     <tr>
                         <th><label for="file">サムネイル変更</label></th>
                         <td>
-                            <img src="/<?= h($work['thumbnail']) ?>" alt="現在のサムネイル"
+                            <img src="<?= h(url('/' . $work['thumbnail'])) ?>" alt="現在のサムネイル"
                                 style="max-width:120px;margin-bottom:.5rem;">
                             <input type="file" name="file" id="file" accept=".jpg,.jpeg,.png,.gif">
                             <small>変更する場合のみ選択（jpg/jpeg/png/gif・2MB以内）</small>
@@ -73,7 +73,7 @@ $error = flash_get('error');
                 </table>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">確認</button>
-                    <a href="./" class="btn">キャンセル</a>
+                    <a href="<?= url('/') ?>" class="btn">キャンセル</a>
                 </div>
             </form>
         </div>

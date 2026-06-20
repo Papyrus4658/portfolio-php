@@ -10,7 +10,7 @@ csrf_verify();
 $id = (int) ($_POST['id'] ?? 0);
 if (!$id) {
     flash_set('error', '無効なIDです。');
-    header('Location: /');
+    header('Location: ' . url('/'));
     exit;
 }
 
@@ -19,7 +19,7 @@ $st->execute([$id]);
 $work = $st->fetch();
 if (!$work) {
     flash_set('error', '作品が見つかりませんでした。');
-    header('Location: /');
+    header('Location: ' . url('/'));
     exit;
 }
 
@@ -37,8 +37,8 @@ $css_root = '../../../css';
         <div class="done-box">
             <p>「<?= h($work['title']) ?>」を非表示にしました。</p>
             <div class="form-actions" style="justify-content:center;">
-                <a href="/portfoli-php/admin/works/redisplay/" class="btn">非表示作品一覧</a>
-                <a href="/portfolio-php/" class="btn btn-primary">作品一覧へ</a>
+                <a href="<?= url('/admin/works/redisplay/') ?>" class="btn">非表示作品一覧</a>
+                <a href="<?= url('/') ?>" class="btn btn-primary">作品一覧へ</a>
             </div>
         </div>
     </div>

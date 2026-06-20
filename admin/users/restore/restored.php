@@ -4,7 +4,7 @@ require __DIR__ . '/../../../dbconnect.php';
 session_start();
 
 if (!empty($_SESSION['admin_id'])) {
-    header('Location: /admin/');
+    header('Location: ' . url('/admin/'));
     exit;
 }
 
@@ -38,7 +38,7 @@ $css_root = '../../../css';
         <h1 class="page-title">復元完了</h1>
         <div class="done-box">
             <p>「<?= h($target['username']) ?>」のアカウントを復元しました。</p>
-            <a href="./login.php" class="btn btn-primary">ログイン</a>
+            <a href="<?= url('/login.php') ?>" class="btn btn-primary">ログイン</a>
         </div>
     </div>
 </div>

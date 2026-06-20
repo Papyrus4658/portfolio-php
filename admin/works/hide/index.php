@@ -8,7 +8,7 @@ $user = require_login('/login.php');
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$id) {
     flash_set('error', '無効な作品IDです。');
-    header('Location: /');
+    header('Location: ' . url('/'));
     exit;
 }
 
@@ -17,7 +17,7 @@ $st->execute([$id]);
 $work = $st->fetch();
 if (!$work) {
     flash_set('error', '作品が見つかりませんでした。');
-    header('Location: /');
+    header('Location: ' . url('/'));
     exit;
 }
 
@@ -40,7 +40,7 @@ $css_root = '../../../css';
                 </tr>
                 <tr>
                     <th>サムネイル</th>
-                    <td><img class="preview-img" src="/<?= h($work['thumbnail']) ?>" alt="サムネイル"></td>
+                    <td><img class="preview-img" src="<?= h(url('/' . $work['thumbnail'])) ?>" alt="サムネイル"></td>
                 </tr>
                 <tr>
                     <th>概要</th>
@@ -65,7 +65,7 @@ $css_root = '../../../css';
                 <input type="hidden" name="id" value="<?= h((string) $work['id']) ?>">
                 <div class="form-actions">
                     <button type="submit" class="btn btn-danger">非表示にする</button>
-                    <a href="./" class="btn">キャンセル</a>
+                    <a href="<?= url('/') ?>" class="btn">キャンセル</a>
                 </div>
             </form>
         </div>

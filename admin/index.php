@@ -36,8 +36,8 @@ $count_hidden = (int) $st->fetchColumn();
             </table>
 
             <div class="form-actions">
-                <a href="./admin/works/add/" class="btn btn-primary">作品登録</a>
-                <a href="./" class="btn">公開サイトを確認</a>
+                <a href="<?= url('/admin/works/add/') ?>" class="btn btn-primary">作品登録</a>
+                <a href="<?= url('/') ?>" class="btn">公開サイトを確認</a>
             </div>
         </div>
     </div>

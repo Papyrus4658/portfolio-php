@@ -48,7 +48,7 @@ $error = flash_get('error');
                     <tbody>
                         <?php foreach ($works as $w): ?>
                             <tr>
-                                <td><img src="/<?= h($w['thumbnail']) ?>" alt="サムネイル"></td>
+                                <td><img src="<?= h(url('/' . $w['thumbnail'])) ?>" alt="サムネイル"></td>
                                 <td><?= h($w['title']) ?></td>
                                 <td class="work-outline-cell"><?= h($w['description']) ?></td>
                                 <td><?= h(date('Y/m/d H:i', strtotime($w['created_at']))) ?></td>

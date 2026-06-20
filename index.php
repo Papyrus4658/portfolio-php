@@ -1,9 +1,5 @@
 <?php
 declare(strict_types=1);
-
-ini_set('display_errors', '1');
-error_reporting(E_ALL);
-
 require __DIR__ . '/dbconnect.php';
 session_start();
 
@@ -24,14 +20,8 @@ if ($logged_in) {
 }
 
 // 公開中の作品を取得
-// $st = $db->query('SELECT * FROM works WHERE visible = 1 ORDER BY id DESC');
-// $works = $st->fetchAll();
-
-$stmt = $pdo->prepare("SELECT * FROM works");
-$stmt->execute();
-
-$works = $stmt->fetch(PDO::FETCH_ASSOC);
-// var_dump($works);
+$st = $db->query('SELECT * FROM works WHERE visible = 1 ORDER BY id DESC');
+$works = $st->fetchAll();
 ?>
 <?php require __DIR__ . '/layout/header.php'; ?>
 
@@ -46,8 +36,8 @@ $works = $stmt->fetch(PDO::FETCH_ASSOC);
                 <div class="works-list">
                     <?php foreach ($works as $w): ?>
                         <div class="work-card">
-                            <a class="work-figure" href="./admin/works/edit/?id=<?= h($w['id']) ?>">
-                                <img src="/<?= h($w['thumbnail']) ?>" alt="<?= h($w['title']) ?>のサムネイル">
+                            <a class="work-figure" href="<?= url('/admin/works/edit/') ?>?id=<?= h($w['id']) ?>">
+                                <img src="<?= h(url('/' . $w['thumbnail'])) ?>" alt="<?= h($w['title']) ?>のサムネイル">
                                 <div class="work-figcaption">
                                     <h2><?= h($w['title']) ?></h2>
                                     <p class="work-outline"><?= nl2br(h($w['description'])) ?></p>
@@ -62,8 +52,8 @@ $works = $stmt->fetch(PDO::FETCH_ASSOC);
                                 <span>登録: <?= h(date('Y/m/d', strtotime($w['created_at']))) ?></span>
                                 <span>更新: <?= h(date('Y/m/d', strtotime($w['updated_at']))) ?></span>
                                 <span class="work-actions">
-                                    <a href="./admin/works/edit/?id=<?= h($w['id']) ?>">[編集]</a>
-                                    <a href="./admin/works/hide/?id=<?= h($w['id']) ?>">[非表示]</a>
+                                    <a href="<?= url('/admin/works/edit/') ?>?id=<?= h($w['id']) ?>">[編集]</a>
+                                    <a href="<?= url('/admin/works/hide/') ?>?id=<?= h($w['id']) ?>">[非表示]</a>
                                 </span>
                             </div>
                         </div>
@@ -86,7 +76,7 @@ $works = $stmt->fetch(PDO::FETCH_ASSOC);
                 <?php foreach ($works as $w): ?>
                     <div class="work-card">
                         <div class="work-figure" style="text-decoration:none;color:inherit;">
-                            <img src="/<?= h($w['thumbnail']) ?>" alt="<?= h($w['title']) ?>のサムネイル">
+                            <img src="<?= h(url('/' . $w['thumbnail'])) ?>" alt="<?= h($w['title']) ?>のサムネイル">
                             <div class="work-figcaption">
                                 <h2><?= h($w['title']) ?></h2>
                                 <p class="work-outline"><?= nl2br(h($w['description'])) ?></p>
@@ -107,7 +97,7 @@ $works = $stmt->fetch(PDO::FETCH_ASSOC);
         </div>
 
         <div style="text-align:right; margin-top:.5rem;">
-            <a href="./login.php" class="btn">管理者ログイン</a>
+            <a href="<?= url('/login.php') ?>" class="btn">管理者ログイン</a>
         </div>
     </div>
 

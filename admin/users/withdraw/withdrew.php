@@ -25,7 +25,7 @@ $css_root = '../../../css';
         <h1 class="page-title">退会完了</h1>
         <div class="done-box">
             <p>退会手続きが完了しました。ご利用ありがとうございました。</p>
-            <a href="/portfolio-php/" class="btn btn-primary">トップへ</a>
+            <a href="<?= url('/') ?>" class="btn btn-primary">トップへ</a>
         </div>
     </div>
 </div>

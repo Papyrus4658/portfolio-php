@@ -5,7 +5,7 @@ session_start();
 
 // 既にログイン済みなら管理TOPへ
 if (!empty($_SESSION['admin_id'])) {
-    header('Location: /admin/');
+    header('Location: ' . url('/admin/'));
     exit;
 }
 
@@ -24,13 +24,13 @@ $error = flash_get('error');
         <?php endif; ?>
 
         <div class="form-card">
-            <form action="/login.php" method="post">
+            <form action="<?= url('/login.php') ?>" method="post">
                 <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
                 <table class="form-table">
                     <tr>
                         <th><label for="email">メールアドレス</label></th>
                         <td><input type="email" name="email" id="email" required autofocus
-                                placeholder="xxxx@xxxx.com"></td>
+                                placeholder="admin@example.com"></td>
                     </tr>
                     <tr>
                         <th><label for="password">パスワード</label></th>
@@ -39,7 +39,7 @@ $error = flash_get('error');
                 </table>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">ログイン</button>
-                    <a href="./">← 公開サイトへ</a>
+                    <a href="<?= url('/') ?>">← 公開サイトへ</a>
                 </div>
             </form>
         </div>
