@@ -34,7 +34,7 @@ $css_root = '../../../css';
                 <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
                 <div class="form-actions">
                     <button type="submit" class="btn btn-danger">退会する</button>
-                    <a href="/admin/" class="btn">キャンセル</a>
+                    <a href="./admin/" class="btn">キャンセル</a>
                 </div>
             </form>
         </div>

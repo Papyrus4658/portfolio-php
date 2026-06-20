@@ -37,8 +37,8 @@ $css_root = '../../../css';
         <div class="done-box">
             <p>「<?= h($work['title']) ?>」を非表示にしました。</p>
             <div class="form-actions" style="justify-content:center;">
-                <a href="/admin/works/redisplay/" class="btn">非表示作品一覧</a>
-                <a href="/" class="btn btn-primary">作品一覧へ</a>
+                <a href="/portfoli-php/admin/works/redisplay/" class="btn">非表示作品一覧</a>
+                <a href="/portfolio-php/" class="btn btn-primary">作品一覧へ</a>
             </div>
         </div>
     </div>

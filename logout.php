@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
             <div class="done-box">
                 <p>ログアウトしました。</p>
-                <a href="/" class="btn">トップへ</a>
-                <a href="/login.php" class="btn btn-primary">再ログイン</a>
+                <a href="./" class="btn">トップへ</a>
+                <a href="./login.php" class="btn btn-primary">再ログイン</a>
             </div>
         <?php else: ?>
             <div class="form-card">
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
                     <div class="form-actions">
                         <button type="submit" class="btn btn-danger">ログアウト</button>
-                        <a href="/admin/" class="btn">キャンセル</a>
+                        <a href="./admin/" class="btn">キャンセル</a>
                     </div>
                 </form>
             </div>

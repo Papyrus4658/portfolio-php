@@ -90,7 +90,7 @@ $d = $_SESSION['user_edit'];
                 <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">更新</button>
-                    <a href="index.php" class="btn">キャンセル</a>
+                    <a href="./index.php" class="btn">キャンセル</a>
                 </div>
             </form>
         </div>

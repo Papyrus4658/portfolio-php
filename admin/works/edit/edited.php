@@ -57,8 +57,8 @@ $css_root = '../../../css';
         <div class="done-box">
             <p>「<?= h($d['title']) ?>」を更新しました。</p>
             <div class="form-actions" style="justify-content:center;">
-                <a href="/admin/works/edit/?id=<?= h((string) $d['id']) ?>" class="btn">続けて編集</a>
-                <a href="/" class="btn btn-primary">作品一覧へ</a>
+                <a href="/portfoli-php/admin/works/edit/?id=<?= h((string) $d['id']) ?>" class="btn">続けて編集</a>
+                <a href="/portfoli-php/" class="btn btn-primary">作品一覧へ</a>
             </div>
         </div>
     </div>

@@ -121,7 +121,7 @@ $d = $_SESSION['work_add'];
                 <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">登録</button>
-                    <a href="index.php" class="btn">キャンセル</a>
+                    <a href="./index.php" class="btn">キャンセル</a>
                 </div>
             </form>
         </div>

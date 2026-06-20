@@ -38,7 +38,7 @@ $css_root = '../../../css';
         <div class="done-box">
             <p>アカウント情報を更新しました。</p>
             <div class="form-actions" style="justify-content:center;">
-                <a href="/admin/" class="btn btn-primary">管理TOPへ</a>
+                <a href="./admin/" class="btn btn-primary">管理TOPへ</a>
             </div>
         </div>
     </div>

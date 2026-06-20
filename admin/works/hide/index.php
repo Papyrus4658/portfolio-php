@@ -65,7 +65,7 @@ $css_root = '../../../css';
                 <input type="hidden" name="id" value="<?= h((string) $work['id']) ?>">
                 <div class="form-actions">
                     <button type="submit" class="btn btn-danger">非表示にする</button>
-                    <a href="/" class="btn">キャンセル</a>
+                    <a href="./" class="btn">キャンセル</a>
                 </div>
             </form>
         </div>

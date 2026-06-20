@@ -15,11 +15,11 @@ $css_root = $css_root ?? 'css';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= h($page_title ?? 'ポートフォリオ') ?></title>
     <link rel="stylesheet" href="<?= $css_root ?>/style.css">
-    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <link rel="icon" href="./images/favicon.png" type="image/png">
 </head>
 
 <body>
     <header class="site-header">
-        <a href="/" class="site-title">Portfolio</a>
+        <a href="./" class="site-title">Portfolio</a>
     </header>
     <main class="site-main">

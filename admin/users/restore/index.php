@@ -42,7 +42,7 @@ $error = flash_get('error');
                 </table>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">復元</button>
-                    <a href="/login.php" class="btn">ログインへ</a>
+                    <a href="./login.php" class="btn">ログインへ</a>
                 </div>
             </form>
         </div>

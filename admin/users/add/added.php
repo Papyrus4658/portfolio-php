@@ -24,7 +24,7 @@ $st->execute([$d['username'], $d['email'], $d['hash']]);
 $page_title = '登録完了';
 $css_root = '../../../css';
 ?>
-<?php require __DIR__ . '/../../../layout/header.php'; ?>
+<?php require __DIR__ . '/portfolio-php/layout/header.php'; ?>
 
 <div class="site-main">
     <div class="content">
@@ -32,8 +32,8 @@ $css_root = '../../../css';
         <div class="done-box">
             <p>「<?= h($d['username']) ?>」を管理者として登録しました。</p>
             <div class="form-actions" style="justify-content:center;">
-                <a href="/admin/users/add/" class="btn">続けて登録</a>
-                <a href="/admin/" class="btn btn-primary">管理TOPへ</a>
+                <a href="./admin/users/add/" class="btn">続けて登録</a>
+                <a href="./admin/" class="btn btn-primary">管理TOPへ</a>
             </div>
         </div>
     </div>

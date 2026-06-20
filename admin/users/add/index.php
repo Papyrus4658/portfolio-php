@@ -44,7 +44,7 @@ $error = flash_get('error');
                 </table>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">確認</button>
-                    <a href="/admin/" class="btn">キャンセル</a>
+                    <a href="./admin/" class="btn">キャンセル</a>
                 </div>
             </form>
         </div>

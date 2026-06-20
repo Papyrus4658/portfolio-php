@@ -1,0 +1,18 @@
+Options -Indexes
+
+# セキュリティヘッダー
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# temp ディレクトリへの直接アクセスを禁止
+<DirectoryMatch "temp/">
+    Require all denied
+</DirectoryMatch>
+
+# .php 以外のファイルを images/ から配信（直接アクセスのみ許可）
+<FilesMatch "\.(sql|md|json|lock)$">
+    Require all denied
+</FilesMatch>

@@ -48,8 +48,8 @@ $css_root = '../../../css';
         <div class="done-box">
             <p>「<?= h($d['title']) ?>」を登録しました。</p>
             <div class="form-actions" style="justify-content:center;">
-                <a href="/admin/works/add/" class="btn btn-primary">続けて登録</a>
-                <a href="/" class="btn">作品一覧へ</a>
+                <a href="/portfolio-php/admin/works/add/" class="btn btn-primary">続けて登録</a>
+                <a href="/portfolio-php/" class="btn">作品一覧へ</a>
             </div>
         </div>
     </div>

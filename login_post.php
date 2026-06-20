@@ -4,11 +4,11 @@ require __DIR__ . '/dbconnect.php';
 session_start();
 
 if (!empty($_SESSION['admin_id'])) {
-    header('Location: /admin/');
+    header('Location: /portfolio-php/admin/');
     exit;
 }
 
-require_post('/login.php');
+require_post('/portfolio-php/login.php');
 csrf_verify();
 
 $email = trim($_POST['email'] ?? '');
@@ -27,5 +27,5 @@ if ($user && password_verify($password, $user['password_hash'])) {
 }
 
 flash_set('error', 'メールアドレスまたはパスワードが違います。');
-header('Location: /login.php');
+header('Location: /portfolio-php/login.php');
 exit;

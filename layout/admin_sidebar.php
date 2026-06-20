@@ -11,13 +11,13 @@ $root = $root ?? '/';
     <nav class="sidebar-nav">
         <ul>
             <li><a href="<?= $root ?>">公開サイト</a></li>
-            <li><a href="/admin/">管理TOP</a></li>
-            <li><a href="/admin/works/add/">作品登録</a></li>
-            <li><a href="/admin/works/redisplay/">非表示作品</a></li>
-            <li><a href="/admin/users/add/">管理者登録</a></li>
-            <li><a href="/admin/users/edit/">アカウント編集</a></li>
-            <li><a href="/logout.php">ログアウト</a></li>
-            <li><a href="/admin/users/withdraw/">退会</a></li>
+            <li><a href="./admin/">管理TOP</a></li>
+            <li><a href="./admin/works/add/">作品登録</a></li>
+            <li><a href="./admin/works/redisplay/">非表示作品</a></li>
+            <li><a href="./admin/users/add/">管理者登録</a></li>
+            <li><a href="./admin/users/edit/">アカウント編集</a></li>
+            <li><a href="./logout.php">ログアウト</a></li>
+            <li><a href="./admin/users/withdraw/">退会</a></li>
         </ul>
     </nav>
 </aside>

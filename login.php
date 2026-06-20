@@ -30,7 +30,7 @@ $error = flash_get('error');
                     <tr>
                         <th><label for="email">メールアドレス</label></th>
                         <td><input type="email" name="email" id="email" required autofocus
-                                placeholder="admin@example.com"></td>
+                                placeholder="xxxx@xxxx.com"></td>
                     </tr>
                     <tr>
                         <th><label for="password">パスワード</label></th>
@@ -39,7 +39,7 @@ $error = flash_get('error');
                 </table>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">ログイン</button>
-                    <a href="/">← 公開サイトへ</a>
+                    <a href="./">← 公開サイトへ</a>
                 </div>
             </form>
         </div>
