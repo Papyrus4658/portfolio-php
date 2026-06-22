@@ -24,7 +24,7 @@ $error = flash_get('error');
         <?php endif; ?>
 
         <div class="form-card">
-            <form action="<?= url('/login.php') ?>" method="post">
+            <form action="<?= url('/login_post.php') ?>" method="post">
                 <input type="hidden" name="csrf_token" value="<?= h(csrf_token()) ?>">
                 <table class="form-table">
                     <tr>

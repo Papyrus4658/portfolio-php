@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 // --- 設定 ---
 define('DB_DSN', 'mysql:dbname=portfolio_db;host=127.0.0.1;charset=utf8mb4');
-define('DB_USER', 'root');
-define('DB_PASS', 'rootpassword');
+define('DB_USER', 'portfolio_user');
+define('DB_PASS', 'portfolio_pass');
 
 // --- 設置場所 ---
 // このアプリをドキュメントルート直下ではなく、サブディレクトリ
