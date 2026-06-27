@@ -12,8 +12,8 @@
     --color-hover-bg: #111111;
     --color-hover-fg: #f0c040;
 
-    --font-heading: Georgia, "Zen Old Mincho", serif;
-    --font-body: system-ui, "Zen Kaku Gothic New", sans-serif;
+    --font-heading: "BIZ UDPMincho";
+    --font-body: "BIZ UDPMincho";
 
     --shadow-card: 0 2px 8px rgba(0, 0, 0, .12);
     --radius: 6px;

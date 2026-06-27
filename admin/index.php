@@ -47,3 +47,4 @@ $count_hidden = (int) $st->fetchColumn();
 </div>
 
 <?php require __DIR__ . '/../layout/footer.php'; ?>
+
