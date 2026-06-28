@@ -11,7 +11,7 @@ INSERT INTO users (
 VALUES (
         'admin',
         'admin@example.com',
-        '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+        '$2y$10$ztIaCM.zH9jN8fHWa38sse6i.m1.IT6GPfanzDUgoPEqTuFpqtEGu'
     );
 -- サンプル作品
 INSERT INTO works (

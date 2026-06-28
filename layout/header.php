@@ -29,4 +29,3 @@ $css_root = $css_root ?? 'css';
     <header class="site-header">
         <a href="<?= url('/') ?>" class="site-title">Portfolio</a>
     </header>
-    <main class="site-main">

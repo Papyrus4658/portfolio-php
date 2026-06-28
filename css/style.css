@@ -92,7 +92,7 @@ img {
     margin: 2rem auto;
     padding: 0 1.5rem;
     display: grid;
-    grid-template-columns: 1fr 240px;
+    grid-template-columns: 5fr 1fr;
     gap: 2rem;
     align-items: start;
 }

@@ -30,7 +30,7 @@ $error = flash_get('error');
                     <tr>
                         <th><label for="file">サムネイル <span class="text-danger">*</span></label></th>
                         <td>
-                            <input type="file" name="file" id="file" accept=".jpg,.jpeg,.png,.gif" required>
+                            <input type="file" name="file" id="file" accept=".jpg,.jpeg,.png,.gif" required><br>
                             <small>jpg / jpeg / png / gif（2MB以内）</small>
                         </td>
                     </tr>
