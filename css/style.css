@@ -76,6 +76,7 @@ img {
     font-family: var(--font-heading);
     font-size: 1.5rem;
     font-style: italic;
+    font-weight: bold;
     color: var(--color-text);
     text-decoration: none;
     letter-spacing: .05em;
